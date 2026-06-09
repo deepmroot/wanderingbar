@@ -1,0 +1,1389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Wandering Bar — Luxury Mobile Bar | Kamloops, BC</title>
+  <meta name="description" content="Upscale mobile bar service in Kamloops, BC. Custom cocktails, mocktails, specialty coffee, and curated beverage experiences for weddings, private events, and celebrations across the Interior.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+
+  <style>
+    /* ─── RESET ─────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+    :root {
+      --primary:   #3B2A22;
+      --secondary: #C48B5A;
+      --accent:    #E8D8C3;
+      --bg:        #FAF4ED;
+      --light:     #FFF9F2;
+      --muted:     #6D5A4B;
+      --dark:      #2D221B;
+      --serif:     'Cormorant Garamond', Georgia, serif;
+      --sans:      'DM Sans', system-ui, sans-serif;
+      --ease:      cubic-bezier(0.4, 0, 0.2, 1);
+      --ease-out:  cubic-bezier(0.0, 0, 0.2, 1);
+      --shadow-sm: 0 2px 12px rgba(59,42,34,0.07);
+      --shadow-md: 0 8px 32px rgba(59,42,34,0.11);
+      --shadow-lg: 0 20px 60px rgba(59,42,34,0.15);
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--dark);
+      font-family: var(--sans);
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* grain overlay */
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      pointer-events: none; z-index: 9999;
+      opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+    }
+
+    img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+
+    /* ─── TYPE ───────────────────────────────────── */
+    .tag {
+      font-family: var(--sans); font-size: 0.65rem; font-weight: 500;
+      letter-spacing: 0.25em; text-transform: uppercase; color: var(--secondary);
+    }
+    h1, h2, h3 { font-family: var(--serif); font-weight: 400; line-height: 1.1; }
+
+    /* ─── BUTTONS ────────────────────────────────── */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+      padding: 0.9rem 2.2rem; font-family: var(--sans); font-size: 0.72rem;
+      font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase;
+      border-radius: 50px; border: 1.5px solid transparent;
+      transition: all 0.32s var(--ease); cursor: pointer; white-space: nowrap;
+    }
+    .btn-primary { background: var(--secondary); color: var(--light); border-color: var(--secondary); }
+    .btn-primary:hover { background: transparent; color: var(--secondary); }
+    .btn-outline { background: transparent; color: var(--light); border-color: rgba(255,255,255,0.55); }
+    .btn-outline:hover { background: rgba(255,255,255,0.1); border-color: #fff; }
+    .btn-dark { background: var(--primary); color: var(--accent); border-color: var(--primary); }
+    .btn-dark:hover { background: transparent; color: var(--primary); }
+    .btn-ghost { background: transparent; color: var(--primary); border-color: var(--accent); }
+    .btn-ghost:hover { background: var(--accent); }
+
+    /* ─── LAYOUT ─────────────────────────────────── */
+    .section    { padding: 7rem 0; }
+    .section-sm { padding: 5rem 0; }
+    .container  { max-width: 1280px; margin: 0 auto; padding: 0 2rem; }
+    .container-wide { max-width: 1440px; margin: 0 auto; padding: 0 2rem; }
+
+    .section-header { text-align: center; margin-bottom: 4rem; }
+    .section-header h2 {
+      font-size: clamp(2.6rem, 5vw, 4.2rem);
+      color: var(--primary); margin: 0.6rem 0 1rem;
+    }
+    .section-header p { max-width: 560px; margin: 0 auto; color: var(--muted); font-size: 1rem; }
+    .divider { width: 50px; height: 1px; background: var(--secondary); margin: 1.2rem auto; }
+
+    /* ─── ANIMATIONS ─────────────────────────────── */
+    .reveal {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out);
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-left  { opacity: 0; transform: translateX(-36px); transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out); }
+    .reveal-left.visible { opacity: 1; transform: none; }
+    .reveal-right { opacity: 0; transform: translateX(36px);  transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out); }
+    .reveal-right.visible { opacity: 1; transform: none; }
+    .delay-1 { transition-delay: 0.08s; }
+    .delay-2 { transition-delay: 0.18s; }
+    .delay-3 { transition-delay: 0.30s; }
+    .delay-4 { transition-delay: 0.42s; }
+    .delay-5 { transition-delay: 0.54s; }
+    .delay-6 { transition-delay: 0.66s; }
+    .delay-7 { transition-delay: 0.78s; }
+    .delay-8 { transition-delay: 0.90s; }
+
+    /* ─── NAV ────────────────────────────────────── */
+    #nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      padding: 1.6rem 0;
+      transition: background 0.4s var(--ease), box-shadow 0.4s, padding 0.4s;
+    }
+    #nav.scrolled {
+      background: rgba(250,244,237,0.97);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      box-shadow: 0 1px 0 rgba(59,42,34,0.07);
+      padding: 0.6rem 0;
+    }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
+    .nav-logo {
+      display: flex; align-items: center; flex-shrink: 0;
+    }
+    .nav-logo-img {
+      height: clamp(80px, 10vw, 140px); width: auto; object-fit: contain;
+      background: none; border-radius: 0; padding: 0;
+      display: block;
+      /* on dark hero: invert to white art + screen hides the black bg */
+      filter: invert(1);
+      mix-blend-mode: screen;
+      transition: filter 0.4s var(--ease), opacity 0.3s;
+    }
+    #nav.scrolled .nav-logo-img {
+      /* on light bg: multiply makes white transparent, black stays */
+      filter: none;
+      mix-blend-mode: multiply;
+    }
+    .nav-links { display: flex; align-items: center; gap: 2.2rem; }
+    .nav-links a {
+      font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 500;
+      color: rgba(255,255,255,0.78); transition: color 0.3s; position: relative; padding-bottom: 2px;
+    }
+    .nav-links a::after { content: ''; position: absolute; bottom: -3px; left: 0; width: 0; height: 1px; background: var(--secondary); transition: width 0.3s; }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-links a:hover { color: #fff; }
+    #nav.scrolled .nav-links a { color: var(--muted); }
+    #nav.scrolled .nav-links a:hover { color: var(--primary); }
+    .nav-cta .btn { padding: 0.5rem 1.4rem; font-size: 0.66rem; }
+    .nav-cta .btn-outline { color: rgba(255,255,255,0.82); border-color: rgba(255,255,255,0.38); }
+    #nav.scrolled .nav-cta .btn-outline { color: var(--muted); border-color: var(--accent); }
+    #nav.scrolled .nav-cta .btn-outline:hover { background: var(--accent); color: var(--primary); }
+
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; position: relative; z-index: 1001; }
+    .nav-hamburger span { display: block; width: 22px; height: 1.5px; background: rgba(255,255,255,0.9); transition: all 0.3s; border-radius: 2px; }
+    #nav.scrolled .nav-hamburger span { background: var(--primary); }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    .nav-mobile-menu {
+      display: none; position: fixed; inset: 0;
+      background: var(--light); z-index: 999;
+      flex-direction: column; align-items: center; justify-content: center; gap: 0;
+      padding: 2rem;
+    }
+    .nav-mobile-menu.open { display: flex; }
+    .nav-mobile-menu a {
+      font-family: var(--serif); font-size: clamp(2rem, 8vw, 2.6rem);
+      color: var(--primary); font-weight: 300; padding: 0.6rem 0;
+      border-bottom: 1px solid transparent; transition: color 0.2s, border-color 0.2s;
+      width: 100%; text-align: center;
+    }
+    .nav-mobile-menu a:last-of-type { border-bottom: none; }
+    .nav-mobile-menu a:hover { color: var(--secondary); }
+    .nav-mobile-close {
+      position: absolute; top: 1.5rem; right: 1.5rem;
+      background: none; border: none; cursor: pointer;
+      width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+    }
+    .nav-mobile-close svg { width: 20px; height: 20px; stroke: var(--primary); stroke-width: 1.5; }
+    .nav-mobile-location {
+      margin-top: 2rem; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--muted); font-family: var(--sans);
+    }
+
+    /* ─── MOBILE STICKY CTA ──────────────────────── */
+    .mobile-cta-bar {
+      display: none;
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 900;
+      background: var(--primary);
+      padding: env(safe-area-inset-bottom, 0) 0 0;
+    }
+    .mobile-cta-bar-inner {
+      display: flex; gap: 0.75rem; padding: 0.85rem 1.25rem;
+    }
+    .mobile-cta-bar a { flex: 1; text-align: center; padding: 0.8rem; font-size: 0.7rem; border-radius: 8px; }
+
+    /* ─── HERO ───────────────────────────────────── */
+    #hero {
+      position: relative; height: 100dvh; min-height: 600px;
+      display: flex; align-items: center; justify-content: center; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background-image: url('hero.webp');
+      background-size: cover; background-position: center 60%;
+      transform: scale(1.1); will-change: transform;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(
+        170deg,
+        rgba(29,17,10,0.75) 0%,
+        rgba(45,25,10,0.45) 45%,
+        rgba(29,17,10,0.72) 100%
+      );
+    }
+    .hero-glow {
+      position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(ellipse 70% 60% at 50% 70%, rgba(196,139,90,0.12), transparent 70%);
+    }
+    .hero-content {
+      position: relative; z-index: 2; text-align: center;
+      max-width: 860px; padding: 0 1.5rem;
+      display: flex; flex-direction: column; align-items: center;
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 0.9rem;
+      font-size: 0.62rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--secondary); font-family: var(--sans); font-weight: 500;
+      margin-bottom: 1.6rem;
+      opacity: 0; animation: fadeUp 1s 0.3s var(--ease-out) forwards;
+    }
+    .hero-eyebrow::before, .hero-eyebrow::after { content: ''; display: block; width: 36px; height: 1px; background: var(--secondary); opacity: 0.55; }
+    .hero-content h1 {
+      font-size: clamp(3rem, 9vw, 7rem); font-weight: 300;
+      color: var(--light); line-height: 1.05; margin-bottom: 1.6rem;
+      opacity: 0; animation: fadeUp 1s 0.5s var(--ease-out) forwards;
+      letter-spacing: -0.01em;
+    }
+    .hero-content h1 em { font-style: italic; color: var(--accent); display: block; }
+    .hero-content p {
+      font-size: clamp(0.95rem, 2.2vw, 1.1rem); color: rgba(255,255,255,0.72);
+      max-width: 560px; margin-bottom: 2.5rem; font-weight: 300; line-height: 1.78;
+      opacity: 0; animation: fadeUp 1s 0.72s var(--ease-out) forwards;
+    }
+    .hero-btns {
+      display: flex; gap: 0.85rem; flex-wrap: wrap; justify-content: center;
+      opacity: 0; animation: fadeUp 1s 0.9s var(--ease-out) forwards;
+    }
+    .hero-bottom {
+      position: absolute; bottom: 0; left: 0; right: 0; z-index: 2;
+      display: flex; align-items: flex-end; justify-content: space-between;
+      padding: 1.8rem 3rem; pointer-events: none;
+      opacity: 0; animation: fadeIn 1s 1.4s forwards;
+    }
+    .hero-loc {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: rgba(255,255,255,0.4); font-family: var(--sans);
+      pointer-events: auto;
+    }
+    .hero-loc svg { width: 11px; height: 11px; stroke: var(--secondary); flex-shrink: 0; }
+    .hero-scroll {
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+    }
+    .hero-scroll span { font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.35); }
+    .scroll-line { width: 1px; height: 44px; background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent); animation: scrollPulse 2.2s ease-in-out infinite; }
+
+    @keyframes fadeUp  { from { opacity:0; transform: translateY(22px); } to { opacity:1; transform:none; } }
+    @keyframes fadeIn  { from { opacity:0; } to { opacity:1; } }
+    @keyframes scrollPulse { 0%,100%{ opacity:1; transform:scaleY(1);   transform-origin:top; }
+                             50%    { opacity:0.4; transform:scaleY(0.5); transform-origin:top; } }
+
+    /* ─── MARQUEE BAND ───────────────────────────── */
+    .tagline-band { background: var(--primary); padding: 1.3rem 0; overflow: hidden; user-select: none; }
+    .tagline-band-inner {
+      display: flex; align-items: center; gap: 3rem; white-space: nowrap;
+      animation: marquee 30s linear infinite;
+    }
+    .tagline-band-item {
+      display: flex; align-items: center; gap: 1.5rem;
+      font-family: var(--serif); font-size: 1.05rem; font-style: italic;
+      color: var(--accent); flex-shrink: 0;
+    }
+    .band-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--secondary); flex-shrink: 0; }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ─── ABOUT ──────────────────────────────────── */
+    #about { background: var(--light); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+    .about-img-wrap { position: relative; padding-bottom: 3rem; padding-right: 3rem; }
+    .about-img-main {
+      border-radius: 6px; overflow: hidden; height: 560px;
+      box-shadow: var(--shadow-lg);
+    }
+    .about-img-main img { transition: transform 0.9s var(--ease); }
+    .about-img-main:hover img { transform: scale(1.04); }
+    .about-img-accent {
+      position: absolute; bottom: 0; right: 0;
+      width: 52%; aspect-ratio: 4/3; border-radius: 6px; overflow: hidden;
+      border: 6px solid var(--light);
+      box-shadow: var(--shadow-lg);
+    }
+    .about-img-accent img { transition: transform 0.8s var(--ease); }
+    .about-img-accent:hover img { transform: scale(1.06); }
+    .about-text .tag { margin-bottom: 0.9rem; }
+    .about-text h2 { font-size: clamp(2.2rem, 3.8vw, 3.4rem); color: var(--primary); margin-bottom: 1.4rem; }
+    .about-text p { color: var(--muted); margin-bottom: 1rem; font-size: 0.98rem; line-height: 1.82; }
+    .about-text .divider { margin: 1.6rem 0; }
+    .about-why { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem 1.5rem; margin-bottom: 2rem; }
+    .about-why-item {
+      display: flex; align-items: center; gap: 0.65rem;
+      font-size: 0.88rem; color: var(--muted);
+    }
+    .about-why-item::before { content: ''; display: block; width: 18px; height: 1px; background: var(--secondary); flex-shrink: 0; }
+
+    /* ─── STATS BAND ─────────────────────────────── */
+    .stats-band { background: var(--primary); padding: 3.5rem 0; }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; text-align: center; }
+    .stat-item { }
+    .stat-animate {
+      opacity: 0; transform: translateY(16px);
+      transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+    }
+    .stat-animate.visible { opacity: 1; transform: none; }
+    .stat-number {
+      font-family: var(--serif); font-size: clamp(2.8rem, 5vw, 4rem);
+      font-weight: 300; color: var(--accent); line-height: 1; margin-bottom: 0.4rem;
+    }
+    .stat-number em { font-style: italic; color: var(--secondary); }
+    .stat-label {
+      font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase;
+      font-family: var(--sans); color: rgba(232,216,195,0.5); font-weight: 500;
+    }
+    .stat-divider { width: 1px; height: 100%; background: rgba(232,216,195,0.12); }
+
+    /* ─── EXPERIENCES ────────────────────────────── */
+    #experiences { background: var(--bg); }
+    .exp-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
+    .exp-card {
+      background: var(--light);
+      border: 1px solid rgba(196,139,90,0.12);
+      border-radius: 10px; padding: 2.2rem 1.8rem; text-align: center;
+      transition: transform 0.3s var(--ease), box-shadow 0.3s, border-color 0.3s;
+      cursor: default;
+    }
+    .exp-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); border-color: rgba(196,139,90,0.35); }
+    .exp-icon {
+      width: 60px; height: 60px; border-radius: 50%; background: var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.3rem; transition: background 0.3s, transform 0.3s;
+    }
+    .exp-card:hover .exp-icon { background: var(--secondary); transform: scale(1.08); }
+    .exp-icon svg { width: 24px; height: 24px; stroke: var(--primary); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.3s; }
+    .exp-card:hover .exp-icon svg { stroke: var(--light); }
+    .exp-card h3 { font-size: 1.1rem; color: var(--primary); margin-bottom: 0.5rem; font-weight: 500; }
+    .exp-card p { font-size: 0.85rem; color: var(--muted); line-height: 1.68; }
+
+    /* ─── PROVIDES ───────────────────────────────── */
+    #provides { background: var(--primary); position: relative; overflow: hidden; }
+    #provides::before {
+      content: ''; position: absolute; top: -20%; right: -10%; width: 600px; height: 600px;
+      border-radius: 50%; background: rgba(196,139,90,0.04); pointer-events: none;
+    }
+    .provides-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; position: relative; z-index: 1; }
+    .provides-text .tag { color: var(--secondary); margin-bottom: 0.9rem; }
+    .provides-text h2 { font-size: clamp(2.2rem, 3.5vw, 3.4rem); color: var(--accent); margin-bottom: 1.4rem; }
+    .provides-text p { color: rgba(232,216,195,0.68); margin-bottom: 1.8rem; line-height: 1.82; font-size: 0.98rem; }
+    .provides-list { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem 2rem; margin-bottom: 2rem; }
+    .provides-item { display: flex; align-items: center; gap: 0.65rem; font-size: 0.9rem; color: rgba(232,216,195,0.82); }
+    .provides-item::before { content: ''; display: block; width: 5px; height: 5px; border-radius: 50%; background: var(--secondary); flex-shrink: 0; }
+    .provides-img { border-radius: 10px; overflow: hidden; height: 560px; box-shadow: 0 30px 80px rgba(0,0,0,0.3); }
+    .provides-img img { transition: transform 0.9s var(--ease); }
+    .provides-img:hover img { transform: scale(1.04); }
+
+    /* ─── PACKAGES ───────────────────────────────── */
+    #packages { background: var(--light); }
+    .packages-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; align-items: start; }
+    .pkg-card {
+      background: var(--bg);
+      border: 1px solid rgba(196,139,90,0.15);
+      border-radius: 12px; padding: 2.8rem 2.4rem; position: relative;
+      transition: transform 0.32s var(--ease), box-shadow 0.32s, border-color 0.32s;
+    }
+    .pkg-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: rgba(196,139,90,0.3); }
+    .pkg-card.featured {
+      background: var(--primary); border-color: var(--primary);
+      transform: scale(1.03);
+      box-shadow: 0 24px 70px rgba(59,42,34,0.22);
+    }
+    .pkg-card.featured:hover { transform: scale(1.03) translateY(-5px); box-shadow: 0 32px 80px rgba(59,42,34,0.28); }
+    .pkg-badge {
+      position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+      background: var(--secondary); color: var(--light);
+      font-family: var(--sans); font-size: 0.6rem; font-weight: 600;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      padding: 0.32rem 1.1rem; border-radius: 50px; white-space: nowrap;
+      box-shadow: 0 4px 16px rgba(196,139,90,0.4);
+    }
+    .pkg-label { font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase; font-family: var(--sans); font-weight: 500; color: var(--secondary); margin-bottom: 0.35rem; }
+    .pkg-card.featured .pkg-label { color: rgba(196,139,90,0.8); }
+    .pkg-card h3 { font-size: 1.9rem; color: var(--primary); margin-bottom: 0.25rem; font-weight: 300; }
+    .pkg-card.featured h3 { color: var(--accent); }
+    .pkg-price { font-family: var(--serif); font-size: 1.05rem; color: var(--secondary); font-weight: 400; margin-bottom: 0.6rem; }
+    .pkg-card.featured .pkg-price { color: rgba(196,139,90,0.8); }
+    .pkg-desc { font-size: 0.86rem; color: var(--muted); line-height: 1.65; margin-bottom: 0.8rem; }
+    .pkg-card.featured .pkg-desc { color: rgba(232,216,195,0.65); }
+    .pkg-best { font-size: 0.76rem; color: var(--secondary); font-style: italic; font-family: var(--serif); opacity: 0.75; margin-bottom: 1.4rem; }
+    .pkg-divider { width: 36px; height: 1px; background: var(--accent); margin-bottom: 1.4rem; }
+    .pkg-card.featured .pkg-divider { background: rgba(232,216,195,0.2); }
+    .pkg-features { display: flex; flex-direction: column; gap: 0.65rem; margin-bottom: 2rem; }
+    .pkg-feature { display: flex; align-items: flex-start; gap: 0.7rem; font-size: 0.86rem; color: var(--muted); }
+    .pkg-card.featured .pkg-feature { color: rgba(232,216,195,0.8); }
+    .pkg-check {
+      width: 15px; height: 15px; border-radius: 50%;
+      background: rgba(196,139,90,0.15);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 3px;
+    }
+    .pkg-card.featured .pkg-check { background: rgba(232,216,195,0.12); }
+    .pkg-check svg { width: 8px; height: 8px; stroke: var(--secondary); fill: none; stroke-width: 2.5; stroke-linecap: round; }
+    .pkg-card.featured .pkg-check svg { stroke: var(--accent); }
+    .pkg-card .btn { width: 100%; justify-content: center; }
+    .pkg-card:not(.featured) .btn { background: transparent; color: var(--primary); border-color: rgba(196,139,90,0.35); }
+    .pkg-card:not(.featured) .btn:hover { background: var(--accent); border-color: var(--accent); }
+    .pkg-card.featured .btn { background: var(--secondary); color: var(--light); border-color: var(--secondary); }
+    .pkg-card.featured .btn:hover { background: transparent; color: var(--secondary); }
+
+    /* add-ons */
+    .addons-box { margin-top: 3rem; background: var(--bg); border: 1px solid rgba(196,139,90,0.18); border-radius: 12px; padding: 2.5rem 3rem; }
+    .addons-box h3 { font-size: 1.5rem; color: var(--primary); margin-bottom: 0.4rem; }
+    .addons-box > p { font-size: 0.88rem; color: var(--muted); margin-bottom: 1.6rem; }
+    .addons-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
+    .addon-item { background: var(--light); border-radius: 8px; padding: 1.1rem 1.3rem; border: 1px solid rgba(196,139,90,0.1); }
+    .addon-item strong { display: block; font-size: 0.86rem; font-weight: 500; color: var(--primary); margin-bottom: 0.25rem; font-family: var(--sans); }
+    .addon-item span { font-size: 0.78rem; color: var(--secondary); font-weight: 500; }
+    .pkg-notes { padding: 1.2rem 1.6rem; background: rgba(196,139,90,0.06); border-radius: 8px; border-left: 3px solid var(--secondary); }
+    .pkg-notes p { font-size: 0.83rem; color: var(--muted); line-height: 1.72; }
+    .pkg-notes p + p { margin-top: 0.3rem; }
+
+    /* ─── GALLERY ────────────────────────────────── */
+    #gallery { background: var(--bg); }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-template-rows: 360px 280px;
+      gap: 0.65rem;
+    }
+    .gallery-item { overflow: hidden; border-radius: 6px; position: relative; }
+    .gallery-item:nth-child(1) { grid-column: 1 / 6;  grid-row: 1; }
+    .gallery-item:nth-child(2) { grid-column: 6 / 9;  grid-row: 1; }
+    .gallery-item:nth-child(3) { grid-column: 9 / 13; grid-row: 1; }
+    .gallery-item:nth-child(4) { grid-column: 1 / 5;  grid-row: 2; }
+    .gallery-item:nth-child(5) { grid-column: 5 / 9;  grid-row: 2; }
+    .gallery-item:nth-child(6) { grid-column: 9 / 13; grid-row: 2; }
+    .gallery-item img { transition: transform 0.7s var(--ease); }
+    .gallery-item:hover img { transform: scale(1.07); }
+    .gallery-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(29,17,10,0.5) 0%, transparent 55%);
+      opacity: 0; transition: opacity 0.35s;
+    }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+    /* scroll dots for mobile */
+    .gallery-dots { display: none; justify-content: center; gap: 6px; margin-top: 1.2rem; }
+    .gallery-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); transition: background 0.3s, transform 0.3s; }
+    .gallery-dot.active { background: var(--secondary); transform: scale(1.3); }
+
+    /* ─── HOW IT WORKS ───────────────────────────── */
+    #how { background: var(--light); }
+    .steps-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 2rem; position: relative;
+    }
+    .steps-line {
+      position: absolute; top: 33px; left: calc(12.5% + 34px); right: calc(12.5% + 34px); height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), var(--secondary), var(--accent), transparent);
+    }
+    .step-card { text-align: center; position: relative; z-index: 1; }
+    .step-number {
+      width: 66px; height: 66px; border-radius: 50%;
+      background: var(--bg); border: 1.5px solid rgba(196,139,90,0.3);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.4rem;
+      transition: background 0.3s, border-color 0.3s, box-shadow 0.3s;
+      box-shadow: var(--shadow-sm);
+    }
+    .step-card:hover .step-number { background: var(--secondary); border-color: var(--secondary); box-shadow: 0 8px 24px rgba(196,139,90,0.3); }
+    .step-number span { font-family: var(--serif); font-size: 1.35rem; color: var(--secondary); font-style: italic; transition: color 0.3s; }
+    .step-card:hover .step-number span { color: var(--light); }
+    .step-card h3 { font-size: 1.12rem; color: var(--primary); margin-bottom: 0.45rem; }
+    .step-card p { font-size: 0.87rem; color: var(--muted); line-height: 1.68; }
+
+    /* ─── TESTIMONIALS ───────────────────────────── */
+    #testimonials { background: var(--accent); }
+    #testimonials .section-header h2 { color: var(--primary); }
+    .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .testimonial-card {
+      background: var(--light); border-radius: 12px; padding: 2.4rem;
+      box-shadow: var(--shadow-sm); transition: transform 0.3s var(--ease), box-shadow 0.3s;
+      display: flex; flex-direction: column;
+    }
+    .testimonial-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+    .testimonial-quote { font-family: var(--serif); font-size: 3.8rem; line-height: 1; color: var(--secondary); opacity: 0.3; margin-bottom: 0.3rem; }
+    .testimonial-stars { display: flex; gap: 3px; margin-bottom: 0.9rem; }
+    .testimonial-stars svg { width: 13px; height: 13px; fill: var(--secondary); }
+    .testimonial-card p { font-family: var(--serif); font-size: 1.02rem; font-style: italic; color: var(--muted); line-height: 1.78; margin-bottom: 1.5rem; flex: 1; }
+    .testimonial-author { display: flex; align-items: center; gap: 0.75rem; margin-top: auto; }
+    .testimonial-avatar { width: 42px; height: 42px; border-radius: 50%; overflow: hidden; flex-shrink: 0; background: var(--accent); }
+    .testimonial-name strong { display: block; font-size: 0.83rem; color: var(--primary); font-weight: 500; }
+    .testimonial-name span { font-size: 0.73rem; color: var(--muted); }
+
+    /* ─── FAQ ────────────────────────────────────── */
+    #faq { background: var(--bg); }
+    .faq-list { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 0.65rem; }
+    .faq-item {
+      background: var(--light); border: 1px solid rgba(196,139,90,0.12);
+      border-radius: 10px; overflow: hidden; transition: border-color 0.3s;
+    }
+    .faq-item.open { border-color: rgba(196,139,90,0.32); }
+    .faq-question {
+      width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+      padding: 1.35rem 1.7rem; background: none; border: none; cursor: pointer; text-align: left;
+      font-family: var(--serif); font-size: 1.08rem; color: var(--primary); font-weight: 400;
+    }
+    .faq-icon {
+      width: 28px; height: 28px; border-radius: 50%; background: var(--accent);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+      transition: background 0.3s, transform 0.35s;
+    }
+    .faq-item.open .faq-icon { background: var(--secondary); transform: rotate(45deg); }
+    .faq-icon svg { width: 11px; height: 11px; stroke: var(--primary); fill: none; stroke-width: 2; stroke-linecap: round; }
+    .faq-item.open .faq-icon svg { stroke: var(--light); }
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.45s var(--ease-out); }
+    .faq-item.open .faq-answer { max-height: 400px; }
+    .faq-answer-inner { padding: 0 1.7rem 1.5rem; font-size: 0.93rem; color: var(--muted); line-height: 1.8; }
+
+    /* ─── FINAL CTA ──────────────────────────────── */
+    #cta { position: relative; overflow: hidden; }
+    .cta-bg {
+      position: absolute; inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=1600&auto=format&fit=crop&q=80');
+      background-size: cover; background-position: center;
+    }
+    .cta-overlay { position: absolute; inset: 0; background: linear-gradient(150deg, rgba(29,17,10,0.92), rgba(59,42,34,0.8)); }
+    .cta-glow { position: absolute; inset: 0; background: radial-gradient(ellipse 60% 50% at 50% 80%, rgba(196,139,90,0.1), transparent 70%); pointer-events: none; }
+    .cta-content { position: relative; z-index: 2; text-align: center; padding: 8rem 2rem; max-width: 700px; margin: 0 auto; }
+    .cta-content .tag { color: var(--secondary); }
+    .cta-content h2 { font-size: clamp(2.6rem, 6vw, 5rem); color: var(--light); font-weight: 300; line-height: 1.08; margin: 0.9rem 0 1.2rem; }
+    .cta-content h2 em { font-style: italic; color: var(--accent); }
+    .cta-content p { color: rgba(255,255,255,0.68); font-size: 1rem; margin-bottom: 2.5rem; line-height: 1.78; }
+    .cta-btns { display: flex; gap: 0.85rem; justify-content: center; flex-wrap: wrap; }
+    .float-acc { position: absolute; border-radius: 50%; background: rgba(196,139,90,0.05); animation: floatA 9s ease-in-out infinite; pointer-events: none; }
+    .float-acc:nth-child(1) { width: 350px; height: 350px; top: -120px; left: -80px; }
+    .float-acc:nth-child(2) { width: 220px; height: 220px; bottom: -60px; right: 8%; animation-delay: -3.5s; }
+    .float-acc:nth-child(3) { width: 160px; height: 160px; top: 35%; right: -40px; animation-delay: -6s; }
+    @keyframes floatA { 0%,100%{ transform:translateY(0) scale(1); } 50%{ transform:translateY(-18px) scale(1.04); } }
+
+    /* ─── FOOTER ─────────────────────────────────── */
+    footer { background: var(--dark); padding: 4.5rem 0 2.5rem; }
+    .footer-inner { display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: 4rem; margin-bottom: 3.5rem; }
+    .footer-brand h3 { font-size: 1.65rem; color: var(--accent); font-weight: 300; margin-bottom: 0.2rem; }
+    .footer-brand .footer-tagline { font-size: 0.58rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--secondary); font-family: var(--sans); display: block; margin-bottom: 1rem; }
+    .footer-brand p { font-size: 0.86rem; color: rgba(232,216,195,0.45); line-height: 1.75; max-width: 300px; margin-bottom: 1.5rem; }
+    .footer-socials { display: flex; gap: 0.7rem; }
+    .footer-social { width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(232,216,195,0.18); display: flex; align-items: center; justify-content: center; transition: background 0.3s, border-color 0.3s; }
+    .footer-social:hover { background: var(--secondary); border-color: var(--secondary); }
+    .footer-social svg { width: 14px; height: 14px; stroke: rgba(232,216,195,0.5); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+    .footer-social:hover svg { stroke: var(--light); }
+    .footer-col h4 { font-size: 0.6rem; letter-spacing: 0.24em; text-transform: uppercase; font-family: var(--sans); font-weight: 500; color: rgba(232,216,195,0.7); margin-bottom: 1.2rem; }
+    .footer-col ul { display: flex; flex-direction: column; gap: 0.55rem; }
+    .footer-col ul li a { font-size: 0.86rem; color: rgba(232,216,195,0.45); transition: color 0.3s; }
+    .footer-col ul li a:hover { color: var(--secondary); }
+    .footer-bottom { border-top: 1px solid rgba(232,216,195,0.08); padding-top: 2rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+    .footer-bottom p { font-size: 0.78rem; color: rgba(232,216,195,0.28); }
+    .footer-bottom span { color: var(--secondary); }
+
+    /* ─── RESPONSIVE ─────────────────────────────── */
+    @media (max-width: 1100px) {
+      .exp-grid { grid-template-columns: repeat(2, 1fr); }
+      .packages-grid { grid-template-columns: 1fr; max-width: 520px; margin: 0 auto; }
+      .pkg-card.featured { transform: none; }
+      .pkg-card.featured:hover { transform: translateY(-5px); }
+      .provides-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .provides-img { height: 400px; max-width: 640px; }
+      .addons-grid { grid-template-columns: repeat(2, 1fr); }
+      .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .about-img-wrap { max-width: 600px; padding-bottom: 2.5rem; padding-right: 2.5rem; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+      .footer-brand { grid-column: 1 / -1; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 2.5rem; }
+    }
+
+    @media (max-width: 768px) {
+      /* show mobile elements */
+      .nav-links, .nav-cta { display: none; }
+      .nav-hamburger { display: flex; }
+      .mobile-cta-bar { display: flex; }
+
+      body { padding-bottom: 70px; } /* clear sticky bar */
+
+      .section { padding: 4.5rem 0; }
+      .section-sm { padding: 3.5rem 0; }
+
+      /* hero */
+      .hero-content h1 em { display: inline; }
+      .hero-bottom { display: none; }
+      .hero-btns .btn { padding: 0.85rem 1.6rem; font-size: 0.7rem; }
+
+      /* gallery — horizontal scroll snap */
+      .gallery-grid {
+        display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        gap: 0.65rem; padding: 0 1.5rem 0.5rem;
+        margin: 0 -1.5rem;
+        scrollbar-width: none;
+        grid-template-columns: unset; grid-template-rows: unset;
+      }
+      .gallery-grid::-webkit-scrollbar { display: none; }
+      .gallery-item { flex: 0 0 78vw; height: 280px; scroll-snap-align: start; border-radius: 8px; }
+      .gallery-item:nth-child(n) { grid-column: unset; grid-row: unset; }
+      .gallery-dots { display: flex; }
+
+      /* testimonials — horizontal scroll snap */
+      .testimonials-grid {
+        display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        gap: 1rem; padding: 0 1.5rem 0.5rem;
+        margin: 0 -1.5rem;
+        scrollbar-width: none;
+      }
+      .testimonials-grid::-webkit-scrollbar { display: none; }
+      .testimonial-card { flex: 0 0 84vw; scroll-snap-align: start; }
+
+      /* steps */
+      .steps-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+      .steps-line { display: none; }
+
+      /* about */
+      .about-img-accent { display: none; }
+      .about-img-wrap { padding: 0; }
+      .about-why { grid-template-columns: 1fr; }
+
+      /* stats */
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+
+      /* exp */
+      .exp-grid { grid-template-columns: repeat(2, 1fr); }
+
+      /* addons */
+      .addons-grid { grid-template-columns: 1fr 1fr; }
+      .addons-box { padding: 2rem 1.5rem; }
+
+      .footer-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    }
+
+    @media (max-width: 520px) {
+      .exp-grid { grid-template-columns: 1fr; }
+      .steps-grid { grid-template-columns: 1fr; gap: 1.8rem; }
+      .addons-grid { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .hero-btns { flex-direction: column; align-items: stretch; }
+      .hero-btns .btn { text-align: center; }
+      .cta-btns { flex-direction: column; align-items: stretch; }
+      .cta-btns .btn { text-align: center; }
+      .gallery-item { flex: 0 0 88vw; height: 260px; }
+      .testimonial-card { flex: 0 0 90vw; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- MOBILE STICKY CTA -->
+  <div class="mobile-cta-bar">
+    <div class="mobile-cta-bar-inner" style="width:100%;">
+      <a href="#cta" class="btn btn-primary" style="flex:1;">Inquire Today</a>
+      <a href="#packages" class="btn btn-ghost" style="flex:1; color:var(--accent); border-color:rgba(232,216,195,0.25);">Packages</a>
+    </div>
+  </div>
+
+  <!-- MOBILE MENU -->
+  <nav class="nav-mobile-menu" id="mobileMenu">
+    <button class="nav-mobile-close" id="mobileClose" aria-label="Close menu">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M18 6 6 18M6 6l12 12" stroke-linecap="round"/></svg>
+    </button>
+    <a href="#about"       onclick="closeMobile()">About</a>
+    <a href="#experiences" onclick="closeMobile()">Experiences</a>
+    <a href="#packages"    onclick="closeMobile()">Packages</a>
+    <a href="#gallery"     onclick="closeMobile()">Gallery</a>
+    <a href="#how"         onclick="closeMobile()">Process</a>
+    <a href="#faq"         onclick="closeMobile()">FAQ</a>
+    <div class="nav-mobile-location">Kamloops &nbsp;·&nbsp; Shuswap &nbsp;·&nbsp; Okanagan &nbsp;·&nbsp; Interior BC</div>
+  </nav>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <div class="container">
+      <div class="nav-inner">
+        <div class="nav-links">
+          <a href="#about">About</a>
+          <a href="#experiences">Experiences</a>
+          <a href="#packages">Packages</a>
+        </div>
+        <a href="#hero" class="nav-logo">
+          <img src="logo.webp" alt="The Wandering Bar" class="nav-logo-img">
+        </a>
+        <div class="nav-links">
+          <a href="#gallery">Gallery</a>
+          <a href="#how">Process</a>
+          <a href="#faq">FAQ</a>
+        </div>
+        <div class="nav-cta">
+          <a href="#cta" class="btn btn-outline">Inquire Today</a>
+        </div>
+        <button class="nav-hamburger" id="navHamburger" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg" id="heroBg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-glow"></div>
+    <div class="float-acc"></div>
+    <div class="float-acc"></div>
+    <div class="float-acc"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">Luxury Mobile Bar &mdash; Kamloops &amp; Interior BC</div>
+      <h1>Luxury that<br><em>travels to you.</em></h1>
+      <p>Handcrafted cocktails, refined mocktails, specialty coffee, and curated beverage experiences designed to elevate every celebration.</p>
+      <div class="hero-btns">
+        <a href="#cta" class="btn btn-primary">Inquire for Your Event</a>
+        <a href="#packages" class="btn btn-outline">View Packages</a>
+      </div>
+    </div>
+    <div class="hero-bottom">
+      <div class="hero-loc">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Kamloops &nbsp;·&nbsp; Shuswap &nbsp;·&nbsp; Okanagan &nbsp;·&nbsp; Interior BC
+      </div>
+      <div class="hero-scroll">
+        <span>Scroll</span>
+        <div class="scroll-line"></div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- MARQUEE BAND -->
+  <div class="tagline-band" aria-hidden="true">
+    <div class="tagline-band-inner">
+      <div class="tagline-band-item">Where Luxury Meets Celebration <div class="band-dot"></div></div>
+      <div class="tagline-band-item">Elevated Experiences, Beautifully Served <div class="band-dot"></div></div>
+      <div class="tagline-band-item">Crafted to Gather. Designed to Impress. <div class="band-dot"></div></div>
+      <div class="tagline-band-item">Luxury That Travels <div class="band-dot"></div></div>
+      <div class="tagline-band-item">Pouring Memorable Moments <div class="band-dot"></div></div>
+      <div class="tagline-band-item">Refined Service, Unforgettable Celebrations <div class="band-dot"></div></div>
+      <div class="tagline-band-item">Where Luxury Meets Celebration <div class="band-dot"></div></div>
+      <div class="tagline-band-item">Elevated Experiences, Beautifully Served <div class="band-dot"></div></div>
+      <div class="tagline-band-item">Crafted to Gather. Designed to Impress. <div class="band-dot"></div></div>
+      <div class="tagline-band-item">Luxury That Travels <div class="band-dot"></div></div>
+      <div class="tagline-band-item">Pouring Memorable Moments <div class="band-dot"></div></div>
+      <div class="tagline-band-item">Refined Service, Unforgettable Celebrations <div class="band-dot"></div></div>
+    </div>
+  </div>
+
+
+  <!-- ABOUT -->
+  <section id="about" class="section">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-img-wrap reveal-left">
+          <div class="about-img-main">
+            <img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=900&auto=format&fit=crop&q=80" alt="The Wandering Bar experience">
+          </div>
+          <div class="about-img-accent">
+            <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=600&auto=format&fit=crop&q=80" alt="Cocktail detail">
+          </div>
+        </div>
+        <div class="about-text reveal-right">
+          <div class="tag">Welcome to The Wandering Bar</div>
+          <h2>Every celebration deserves to feel<br><em style="font-style:italic;">intentional &amp; elevated.</em></h2>
+          <div class="divider" style="margin-left:0;"></div>
+          <p>We are an upscale mobile bar service based in Kamloops, BC, specializing in handcrafted cocktails, refined mocktails, specialty coffee, and curated beverage experiences designed to complement your event.</p>
+          <p>Whether it's an intimate gathering or a large celebration, we bring a polished, professional bar experience directly to you. Our focus is simple — exceptional drinks, thoughtful presentation, and seamless service.</p>
+          <p>From weddings and private events to corporate gatherings and seasonal celebrations, The Wandering Bar transforms ordinary service into a memorable experience.</p>
+          <div class="about-why">
+            <div class="about-why-item">Licensed &amp; professional service</div>
+            <div class="about-why-item">Custom drink menus</div>
+            <div class="about-why-item">Luxury mobile bar experience</div>
+            <div class="about-why-item">Weddings, corporate &amp; parties</div>
+          </div>
+          <a href="#cta" class="btn btn-dark">Book a Consultation</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- STATS BAND -->
+  <div class="stats-band">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item stat-animate">
+          <div class="stat-number"><span class="count" data-target="200">0</span><em>+</em></div>
+          <div class="stat-label">Events Served</div>
+        </div>
+        <div class="stat-item stat-animate">
+          <div class="stat-number"><span class="count" data-target="5">0</span><em>★</em></div>
+          <div class="stat-label">Client Reviews</div>
+        </div>
+        <div class="stat-item stat-animate">
+          <div class="stat-number"><span class="count" data-target="3">0</span></div>
+          <div class="stat-label">Regions Served</div>
+        </div>
+        <div class="stat-item stat-animate">
+          <div class="stat-number"><span class="count" data-target="100">0</span><em>%</em></div>
+          <div class="stat-label">Custom Menus</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- EXPERIENCES -->
+  <section id="experiences" class="section">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="tag">Our Experiences</div>
+        <h2>More than a bar.<br>A complete beverage experience.</h2>
+        <div class="divider"></div>
+        <p>From signature cocktails to specialty coffee and seasonal stations — every offering is crafted with intention and served with care.</p>
+      </div>
+      <div class="exp-grid">
+        <div class="exp-card reveal delay-1">
+          <div class="exp-icon"><svg viewBox="0 0 24 24"><path d="M8 2h8M9 2v3l-4 7h14l-4-7V2"/><path d="M5 12v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-9"/></svg></div>
+          <h3>Luxury Mobile Bar</h3>
+          <p>Custom cocktails, premium mixers, elegant presentation, and seamless professional service.</p>
+        </div>
+        <div class="exp-card reveal delay-2">
+          <div class="exp-icon"><svg viewBox="0 0 24 24"><path d="M12 22V12M12 12C12 7 7 4 3 6"/><path d="M12 12c0-5 5-8 9-6"/><ellipse cx="12" cy="19" rx="5" ry="3"/></svg></div>
+          <h3>Mocktail Experience</h3>
+          <p>Sophisticated, beautifully crafted alcohol-free options so every guest can fully participate.</p>
+        </div>
+        <div class="exp-card reveal delay-3">
+          <div class="exp-icon"><svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></div>
+          <h3>Specialty Coffee</h3>
+          <p>Handcrafted hot and iced beverages, flavoured syrups, and café-style service at your event.</p>
+        </div>
+        <div class="exp-card reveal delay-4">
+          <div class="exp-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div>
+          <h3>Dirty Soda Station</h3>
+          <p>A fun, modern twist with customizable sodas and specialty flavours your guests will love.</p>
+        </div>
+        <div class="exp-card reveal delay-1">
+          <div class="exp-icon"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/><path d="M12 6v6l4 2"/></svg></div>
+          <h3>Seasonal Experiences</h3>
+          <p>Hot chocolate bars, holiday beverage menus, and curated seasonal offerings for any occasion.</p>
+        </div>
+        <div class="exp-card reveal delay-2">
+          <div class="exp-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+          <h3>Custom Drink Menus</h3>
+          <p>Personalized beverage menus designed to reflect your event style, theme, and vision.</p>
+        </div>
+        <div class="exp-card reveal delay-3">
+          <div class="exp-icon"><svg viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg></div>
+          <h3>Premium Styling</h3>
+          <p>Elegant presentation, fresh garnishes, and a visually stunning setup that makes the bar a focal point.</p>
+        </div>
+        <div class="exp-card reveal delay-4">
+          <div class="exp-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <h3>Professional Hospitality</h3>
+          <p>Friendly, polished service with a focus on a seamless, memorable experience from start to last call.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- WHAT WE PROVIDE -->
+  <section id="provides" class="section">
+    <div class="container">
+      <div class="provides-inner">
+        <div class="provides-text reveal-left">
+          <div class="tag">What We Provide</div>
+          <h2>Everything handled,<br><em style="font-style:italic;">beautifully.</em></h2>
+          <div class="divider" style="margin-left:0; background:rgba(196,139,90,0.5);"></div>
+          <p>We take care of every detail so you can be fully present and enjoy your celebration. From planning your custom menu to the final pour of the evening, we've got it covered.</p>
+          <div class="provides-list">
+            <div class="provides-item">Mobile Bartending</div>
+            <div class="provides-item">Mocktail Experiences</div>
+            <div class="provides-item">Specialty Coffee Service</div>
+            <div class="provides-item">Dirty Soda Bars</div>
+            <div class="provides-item">Seasonal Drink Stations</div>
+            <div class="provides-item">Signature Drink Menus</div>
+            <div class="provides-item">Luxury Styling &amp; Setup</div>
+            <div class="provides-item">Professional Hospitality</div>
+          </div>
+          <a href="#cta" class="btn" style="background:transparent; color:var(--accent); border-color:rgba(232,216,195,0.28); margin-top:0.5rem;">
+            Let&rsquo;s Create Something
+          </a>
+        </div>
+        <div class="provides-img reveal-right">
+          <img src="https://images.unsplash.com/photo-1527661591475-527312dd65f5?w=900&auto=format&fit=crop&q=80" alt="The Wandering Bar service">
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- PACKAGES -->
+  <section id="packages" class="section">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="tag">Investments</div>
+        <h2>Your perfect<br><em style="font-family:var(--serif);font-style:italic;">celebration package.</em></h2>
+        <div class="divider"></div>
+        <p>Every event is unique. Our packages are a starting point — we'll work with you to create exactly what your celebration needs.</p>
+      </div>
+
+      <div class="packages-grid">
+        <div class="pkg-card reveal delay-1">
+          <div class="pkg-label">Investment One</div>
+          <h3>The Elevated</h3>
+          <div class="pkg-price">From $1,200+</div>
+          <div class="pkg-desc">A beautifully curated experience for weddings and mid-size events.</div>
+          <div class="pkg-best">Best for: weddings, engagement parties &amp; corporate events</div>
+          <div class="pkg-divider"></div>
+          <div class="pkg-features">
+            <div class="pkg-feature"><div class="pkg-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Custom drink menu (cocktails or mocktails)</div>
+            <div class="pkg-feature"><div class="pkg-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Premium mixers &amp; garnishes</div>
+            <div class="pkg-feature"><div class="pkg-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Styled bar setup</div>
+            <div class="pkg-feature"><div class="pkg-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Signature drink options</div>
+            <div class="pkg-feature"><div class="pkg-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Menu signage</div>
+            <div class="pkg-feature"><div class="pkg-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>4 hours of service</div>
+          </div>
+          <a href="#cta" class="btn">Inquire &amp; Learn More</a>
+        </div>
+
+        <div class="pkg-card featured reveal delay-2">
+          <div class="pkg-badge">Most Popular</div>
+          <div class="pkg-label">Investment Two</div>
+          <h3>The Signature</h3>
+          <div class="pkg-price">From $1,500+</div>
+          <div class="pkg-desc">A full luxury experience for those who want everything beautifully elevated.</div>
+          <div class="pkg-best">Best for: luxury weddings, large events &amp; high-end celebrations</div>
+          <div class="pkg-divider"></div>
+          <div class="pkg-features">
+            <div class="pkg-feature"><div class="pkg-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Full custom beverage experience</div>
+            <div class="pkg-feature"><div class="pkg-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>2 signature cocktails, mocktails, or specialty drinks</div>
+            <div class="pkg-feature"><div class="pkg-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Luxury bar styling &amp; setup design</div>
+            <div class="pkg-feature"><div class="pkg-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Premium ingredients &amp; presentation</div>
+            <div class="pkg-feature"><div class="pkg-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Coffee or add-on station option</div>
+            <div class="pkg-feature"><div class="pkg-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Personalized consultation &amp; planning</div>
+            <div class="pkg-feature"><div class="pkg-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Extended service — 6 hours</div>
+          </div>
+          <a href="#cta" class="btn">Inquire &amp; Learn More</a>
+        </div>
+
+        <div class="pkg-card reveal delay-3">
+          <div class="pkg-label">Custom</div>
+          <h3>Bespoke</h3>
+          <div class="pkg-price">Custom Quote</div>
+          <div class="pkg-desc">Completely tailored to your event — tell us your vision and we'll build it.</div>
+          <div class="pkg-best">Best for: unique events &amp; large gatherings</div>
+          <div class="pkg-divider"></div>
+          <div class="pkg-features">
+            <div class="pkg-feature"><div class="pkg-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Everything designed from scratch</div>
+            <div class="pkg-feature"><div class="pkg-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Flexible service hours</div>
+            <div class="pkg-feature"><div class="pkg-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Any combination of experiences</div>
+            <div class="pkg-feature"><div class="pkg-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Additional staff as needed</div>
+            <div class="pkg-feature"><div class="pkg-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Detailed planning consultation</div>
+          </div>
+          <a href="#cta" class="btn">Start a Conversation</a>
+        </div>
+      </div>
+
+      <div class="addons-box reveal">
+        <h3>Add-On Experiences</h3>
+        <p>Enhance any package with a curated beverage station or additional service.</p>
+        <div class="addons-grid">
+          <div class="addon-item"><strong>Specialty Coffee Bar</strong><span>+$250 – $600</span></div>
+          <div class="addon-item"><strong>Dirty Soda Bar</strong><span>+$500 – $700</span></div>
+          <div class="addon-item"><strong>Custom Mocktail Upgrade</strong><span>+$4.00 per person</span></div>
+          <div class="addon-item"><strong>Extra Bartender</strong><span>+$100 per hour</span></div>
+        </div>
+        <div class="pkg-notes">
+          <p>Alcohol is not provided — clients are responsible for purchasing alcohol. We provide a recommended shopping list based on your guest count and menu.</p>
+          <p>Pricing may vary by guest count and venue. A deposit is required to secure your date. Custom quotes available for all events. Travel fees vary by location in BC.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- GALLERY -->
+  <section id="gallery" class="section">
+    <div class="container-wide">
+      <div class="section-header reveal">
+        <div class="tag">Captured Moments</div>
+        <h2>Every event, a work of art.</h2>
+        <div class="divider"></div>
+      </div>
+      <div class="gallery-grid" id="galleryGrid">
+        <div class="gallery-item reveal delay-1">
+          <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=900&auto=format&fit=crop&q=80" alt="Wedding celebration">
+          <div class="gallery-overlay"></div>
+        </div>
+        <div class="gallery-item reveal delay-2">
+          <img src="https://images.unsplash.com/photo-1527661591475-527312dd65f5?w=600&auto=format&fit=crop&q=80" alt="Cocktail pour">
+          <div class="gallery-overlay"></div>
+        </div>
+        <div class="gallery-item reveal delay-3">
+          <img src="https://images.unsplash.com/photo-1560512823-829485b8bf24?w=700&auto=format&fit=crop&q=80" alt="Signature drinks">
+          <div class="gallery-overlay"></div>
+        </div>
+        <div class="gallery-item reveal delay-1">
+          <img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=600&auto=format&fit=crop&q=80" alt="Bar styling">
+          <div class="gallery-overlay"></div>
+        </div>
+        <div class="gallery-item reveal delay-2">
+          <img src="https://images.unsplash.com/photo-1516997121675-4c2d1684aa3e?w=700&auto=format&fit=crop&q=80" alt="Outdoor celebration">
+          <div class="gallery-overlay"></div>
+        </div>
+        <div class="gallery-item reveal delay-3">
+          <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=700&auto=format&fit=crop&q=80" alt="Celebration moments">
+          <div class="gallery-overlay"></div>
+        </div>
+      </div>
+      <div class="gallery-dots" id="galleryDots">
+        <div class="gallery-dot active"></div>
+        <div class="gallery-dot"></div>
+        <div class="gallery-dot"></div>
+        <div class="gallery-dot"></div>
+        <div class="gallery-dot"></div>
+        <div class="gallery-dot"></div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- HOW IT WORKS -->
+  <section id="how" class="section">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="tag">The Process</div>
+        <h2>Simple, seamless,<br><em style="font-family:var(--serif);font-style:italic;">beautifully handled.</em></h2>
+        <div class="divider"></div>
+        <p>We've made working together as effortless as possible — here's what to expect from inquiry to your event day.</p>
+      </div>
+      <div class="steps-grid">
+        <div class="steps-line"></div>
+        <div class="step-card reveal delay-1">
+          <div class="step-number"><span>01</span></div>
+          <h3>Inquire</h3>
+          <p>Submit our form and share your event details — date, guest count, location, and vision.</p>
+        </div>
+        <div class="step-card reveal delay-2">
+          <div class="step-number"><span>02</span></div>
+          <h3>Consult</h3>
+          <p>We connect for a relaxed consultation to craft the perfect beverage experience together.</p>
+        </div>
+        <div class="step-card reveal delay-3">
+          <div class="step-number"><span>03</span></div>
+          <h3>Customize</h3>
+          <p>We design your menu, finalize styling and logistics, and prepare every beautiful detail.</p>
+        </div>
+        <div class="step-card reveal delay-4">
+          <div class="step-number"><span>04</span></div>
+          <h3>Celebrate</h3>
+          <p>We arrive, set up, and handle everything. You celebrate freely — the bar is taken care of.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- TESTIMONIALS -->
+  <section id="testimonials" class="section">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="tag">Kind Words</div>
+        <h2>Moments that stay<br>with you forever.</h2>
+        <div class="divider"></div>
+      </div>
+      <div class="testimonials-grid" id="testimonialsGrid">
+        <div class="testimonial-card reveal delay-1">
+          <div class="testimonial-quote">"</div>
+          <div class="testimonial-stars">
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p>The Wandering Bar completely elevated our wedding. Our guests could not stop talking about the signature cocktails and how beautiful everything looked. Worth every penny.</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=80" alt="Sarah M."></div>
+            <div class="testimonial-name"><strong>Sarah &amp; James M.</strong><span>Wedding — Salmon Arm, BC</span></div>
+          </div>
+        </div>
+        <div class="testimonial-card reveal delay-2">
+          <div class="testimonial-quote">"</div>
+          <div class="testimonial-stars">
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p>I hired The Wandering Bar for a corporate event and it was the best decision. Professional, warm, beautiful presentation, and the mocktail station was a huge hit.</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80" alt="Michael T."></div>
+            <div class="testimonial-name"><strong>Michael T.</strong><span>Corporate Event — Kamloops, BC</span></div>
+          </div>
+        </div>
+        <div class="testimonial-card reveal delay-3">
+          <div class="testimonial-quote">"</div>
+          <div class="testimonial-stars">
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p>As a wedding planner I recommend The Wandering Bar to every client. They're seamless to work with, the specialty coffee was brilliant, and every couple feels genuinely taken care of.</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&auto=format&fit=crop&q=80" alt="Emily R."></div>
+            <div class="testimonial-name"><strong>Emily R.</strong><span>Wedding Planner — Kelowna, BC</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- FAQ -->
+  <section id="faq" class="section">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="tag">Frequently Asked Questions</div>
+        <h2>Everything you need<br>to know.</h2>
+        <div class="divider"></div>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item open">
+          <button class="faq-question" aria-expanded="true">Do you provide alcohol?<div class="faq-icon"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div></button>
+          <div class="faq-answer"><div class="faq-answer-inner">No — The Wandering Bar does not supply alcohol. The client is responsible for purchasing alcohol for their event. This is in accordance with Canadian liquor laws, which prohibit the sale of alcohol through mobile services. We provide a recommended shopping list based on your guest count and selected menu.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">Are you licensed and insured?<div class="faq-icon"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div></button>
+          <div class="faq-answer"><div class="faq-answer-inner">Yes, we operate in accordance with applicable event requirements and carry business insurance. Specific licensing requirements may vary depending on venue and event type.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">What types of events do you cater to?<div class="faq-icon"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div></button>
+          <div class="faq-answer"><div class="faq-answer-inner">We serve weddings, engagement parties, bridal showers, corporate events, private parties, birthdays, holiday events, markets, and special celebrations of all kinds.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">Do you offer mocktails and non-alcoholic options?<div class="faq-icon"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div></button>
+          <div class="faq-answer"><div class="faq-answer-inner">Absolutely. We specialize in elevated mocktails, specialty coffee, dirty sodas, hot chocolate bars, and fully customized alcohol-free beverage experiences. Every guest deserves a beautiful drink.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">Can we customize our drink menu?<div class="faq-icon"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div></button>
+          <div class="faq-answer"><div class="faq-answer-inner">Yes! Every event is unique, and we work closely with you to create a curated beverage menu that reflects your style, theme, and preferences. Your menu, your vision.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">Where do you travel?<div class="faq-icon"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div></button>
+          <div class="faq-answer"><div class="faq-answer-inner">We proudly serve events throughout Kamloops, the Shuswap, the Okanagan, and the Interior of BC. Travel fees may apply depending on location.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">What is included in your service?<div class="faq-icon"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div></button>
+          <div class="faq-answer"><div class="faq-answer-inner">Packages include professional bartending, bar setup, mixers, garnishes, syrups, cups, menu planning, custom signage, and premium presentation — depending on your package. We walk you through every detail during your consultation.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">How far in advance should we book?<div class="faq-icon"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div></button>
+          <div class="faq-answer"><div class="faq-answer-inner">We recommend booking as early as possible — especially for weddings and peak seasons, as dates fill quickly. The sooner you reach out, the better chance of securing your preferred date.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">Do you require a deposit?<div class="faq-icon"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div></button>
+          <div class="faq-answer"><div class="faq-answer-inner">Yes, a retainer is required to secure your event date, with the remaining balance due prior to your event.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">How do we book?<div class="faq-icon"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div></button>
+          <div class="faq-answer"><div class="faq-answer-inner">Simply submit an inquiry through our contact form and we'll connect with you to create a custom experience for your event. We're here to make the process as easy and enjoyable as possible.</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- FINAL CTA -->
+  <section id="cta">
+    <div class="cta-bg"></div>
+    <div class="cta-overlay"></div>
+    <div class="cta-glow"></div>
+    <div class="float-acc"></div>
+    <div class="float-acc"></div>
+    <div class="cta-content reveal">
+      <div class="tag">Let&rsquo;s Create Something Worth Celebrating</div>
+      <h2>Your event deserves<br>more than <em>ordinary.</em></h2>
+      <p>Let's craft a beverage experience your guests will remember. We're ready to bring something beautiful to your celebration — one perfectly served drink at a time.</p>
+      <div class="cta-btns">
+        <a href="mailto:hello@thewanderingbar.ca" class="btn btn-primary" style="padding:1rem 2.5rem;">Inquire Today</a>
+        <a href="#packages" class="btn btn-outline">View Packages</a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <img src="logo.webp" alt="The Wandering Bar" style="height:160px; width:auto; object-fit:contain; display:block; margin-bottom:1rem; filter:invert(1); mix-blend-mode:screen;">
+          <p>Upscale mobile bar service specializing in handcrafted cocktails, refined mocktails, specialty coffee, and curated beverage experiences for weddings and events across Kamloops, Shuswap, Okanagan, and the Interior.</p>
+          <div class="footer-socials">
+            <a href="https://www.instagram.com/thewanderingbarshuswap/" target="_blank" class="footer-social" aria-label="Instagram">
+              <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg>
+            </a>
+            <a href="#" class="footer-social" aria-label="Facebook">
+              <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Navigate</h4>
+          <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#experiences">Experiences</a></li>
+            <li><a href="#packages">Packages</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#how">Process</a></li>
+            <li><a href="#faq">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Get In Touch</h4>
+          <ul>
+            <li><a href="mailto:hello@thewanderingbar.ca">hello@thewanderingbar.ca</a></li>
+            <li><a href="https://www.instagram.com/thewanderingbarshuswap/" target="_blank">@thewanderingbarshuswap</a></li>
+            <li><a href="#cta">Inquire for Your Date</a></li>
+            <li><a href="#cta">Book a Consultation</a></li>
+          </ul>
+          <div style="margin-top:1.5rem;">
+            <h4>Service Area</h4>
+            <ul>
+              <li><a href="#cta">Kamloops, BC</a></li>
+              <li><a href="#cta">Shuswap</a></li>
+              <li><a href="#cta">Okanagan</a></li>
+              <li><a href="#cta">Interior BC</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 The Wandering Bar. Kamloops, BC. All rights reserved.</p>
+        <p>Crafted with <span>&#9825;</span> for beautiful celebrations.</p>
+      </div>
+    </div>
+  </footer>
+
+
+  <script>
+    // ── NAV SCROLL ──────────────────────────────────
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
+
+    // ── MOBILE MENU ─────────────────────────────────
+    const hamburger = document.getElementById('navHamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileClose = document.getElementById('mobileClose');
+    hamburger.addEventListener('click', () => {
+      if (mobileMenu.classList.contains('open')) {
+        closeMobile();
+      } else {
+        mobileMenu.classList.add('open');
+        hamburger.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+    });
+    mobileClose.addEventListener('click', closeMobile);
+    function closeMobile() {
+      mobileMenu.classList.remove('open');
+      hamburger.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    // ── PARALLAX HERO ────────────────────────────────
+    const heroBg = document.getElementById('heroBg');
+    const isMobile = () => window.innerWidth <= 768;
+    window.addEventListener('scroll', () => {
+      if (!isMobile() && window.scrollY < window.innerHeight * 1.5) {
+        heroBg.style.transform = `scale(1.1) translateY(${window.scrollY * 0.3}px)`;
+      }
+    }, { passive: true });
+
+    // ── SCROLL REVEAL ────────────────────────────────
+    const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.08, rootMargin: '0px 0px -32px 0px' });
+    reveals.forEach(el => io.observe(el));
+
+    // ── FAQ ACCORDION ────────────────────────────────
+    document.querySelectorAll('.faq-question').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => {
+          i.classList.remove('open');
+          i.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+        });
+        if (!isOpen) { item.classList.add('open'); btn.setAttribute('aria-expanded', 'true'); }
+      });
+    });
+
+    // ── GALLERY SCROLL DOTS (mobile) ─────────────────
+    const gallery  = document.getElementById('galleryGrid');
+    const dots     = document.querySelectorAll('.gallery-dot');
+    const items    = gallery.querySelectorAll('.gallery-item');
+    if (gallery) {
+      gallery.addEventListener('scroll', () => {
+        const idx = Math.round(gallery.scrollLeft / (gallery.scrollWidth / items.length));
+        dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+      }, { passive: true });
+    }
+
+    // ── STAT COUNT-UP ────────────────────────────────
+    function animateCount(el) {
+      const target   = parseInt(el.dataset.target, 10);
+      const duration = target >= 100 ? 1800 : target >= 10 ? 1200 : 700;
+      const start    = performance.now();
+      function tick(now) {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased    = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.floor(eased * target);
+        if (progress < 1) requestAnimationFrame(tick);
+        else el.textContent = target;
+      }
+      requestAnimationFrame(tick);
+    }
+    const statsBand = document.querySelector('.stats-band');
+    if (statsBand) {
+      const statsIO = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const items = entry.target.querySelectorAll('.stat-animate');
+            items.forEach((item, i) => {
+              setTimeout(() => {
+                item.classList.add('visible');
+                const counter = item.querySelector('.count');
+                if (counter) animateCount(counter);
+              }, i * 120);
+            });
+            statsIO.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.35 });
+      statsIO.observe(statsBand);
+    }
+
+    // ── SMOOTH ANCHOR SCROLL ─────────────────────────
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          const offset = isMobile() ? 60 : 80;
+          window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - offset, behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
